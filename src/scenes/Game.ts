@@ -16,16 +16,16 @@ export default class Demo extends Phaser.Scene {
 
   create() {
     // setup all required assets here
-    const logo = this.add.image(400, 70, 'logo');
+    // const logo = this.add.image(400, 70, 'logo');
 
-    this.tweens.add({
-      targets: logo,
-      y: 350,
-      duration: 1500,
-      ease: 'Sine.inOut',
-      yoyo: true,
-      repeat: -1
-    });
+    // this.tweens.add({
+    //   targets: logo,
+    //   y: 350,
+    //   duration: 1500,
+    //   ease: 'Sine.inOut',
+    //   yoyo: true,
+    //   repeat: -1
+    // });
 
     this.player = player();
 
