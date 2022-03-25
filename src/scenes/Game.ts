@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { ASSETS, preload } from '../preload';
 import { Player, player } from '../entities/player';
 import { Entity } from '../types';
 
@@ -11,29 +12,25 @@ export default class Demo extends Phaser.Scene {
   player: Player | null = null;
 
   preload() {
-    this.load.image('logo', 'assets/phaser3-logo.png');
+    preload(this);
   }
 
   create() {
-    // setup all required assets here
-    // const logo = this.add.image(400, 70, 'logo');
+    const map = this.make.tilemap({key: ASSETS.MAP});
+    const tileset = map.addTilesetImage(ASSETS.TILES_NAME, ASSETS.TILES);
+    const undestructible = map.createLayer(ASSETS.TILE_LAYER_NON_DESTRUCTIBLE, tileset);
+    const destructible = map.createLayer(ASSETS.TILE_LAYER_DESTRUCTIBLE, tileset);
 
-    // this.tweens.add({
-    //   targets: logo,
-    //   y: 350,
-    //   duration: 1500,
-    //   ease: 'Sine.inOut',
-    //   yoyo: true,
-    //   repeat: -1
-    // });
+    this.anims.createFromAseprite(ASSETS.BLUE_PLAYER);
 
-    this.player = player();
+    this.player = player(this.physics.add.sprite(3, 3, ASSETS.BLUE_PLAYER));
 
     this.enitites.push(this.player);
   }
 
   update(time: number, delta: number) {
-    this.enitites.forEach(entity => entity.update());
+    const cursors = this.input.keyboard.createCursorKeys();
+    this.enitites.forEach(entity => entity.update({ cursors }));
   }
 
 }

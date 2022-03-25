@@ -1,3 +1,3 @@
 export type Entity = {
-	update: () => void;
+	update: ({ cursors }: { cursors?: Phaser.Types.Input.Keyboard.CursorKeys;}) => void;
 }
